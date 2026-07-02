@@ -1,0 +1,17 @@
+{
+  "scriptId": "12CceNtxrulB_uWtEbv3O2AshegCT2rTXCdjMVuGxZ99tnPaZXixzR-lH",
+  "projectId": "prospecs",
+  "rootDir": "",
+  "scriptExtensions": [
+    ".js",
+    ".gs"
+  ],
+  "htmlExtensions": [
+    ".html"
+  ],
+  "jsonExtensions": [
+    ".json"
+  ],
+  "filePushOrder": [],
+  "skipSubdirectories": false
+}

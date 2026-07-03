@@ -1,100 +1,82 @@
-import { describe, test } from 'node:test';
-import { verify } from './test.js';
+import { verify } from "../src/test.js";
 
-describe('variables', () => {
-    test('simple local variable', (t) => {
-        const input = `
+const cases = [
+    [
+        "simple local variable",
+        `
             void foo() {
                 int x;
             }
-        `;
-
-        verify(input, t);
-    });
-
-    test('initialized variable', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        "initialized variable",
+        `
             void foo() {
                 int x = 42;
             }
-        `;
-
-        verify(input, t);
-    });
-
-    test('multiple variables', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        "multiple variables",
+        `
             void foo() {
                 int x, y, z;
             }
-        `;
-
-        verify(input, t);
-    });
-
-    test('generic variable', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        "generic variable",
+        `
             void foo() {
                 List<String> names = new ArrayList<>();
             }
-        `;
-
-        verify(input, t);
-    });
-
-    test('array variable', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        "array variable",
+        `
             void foo() {
                 int[] numbers = new int[10];
             }
-        `;
-
-        verify(input, t);
-    });
-
-    test('var inference', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        "var inference",
+        `
             void foo() {
                 var name = "John";
             }
-        `;
-
-        verify(input, t);
-    });
-
-    test('variable from method call', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        "variable from method call",
+        `
             void foo() {
                 String name = getName();
             }
-        `;
-
-        verify(input, t);
-    });
-
-    test('variable from constructor', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        "variable from constructor",
+        `
             void foo() {
                 Foo foo = new Foo();
             }
-        `;
-
-        verify(input, t);
-    });
-
-    test('variable assignment', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        "variable assignment",
+        `
             void foo() {
                 int x = 0;
                 x = 5;
             }
-        `;
-
-        verify(input, t);
-    });
-
-    test('variable shadowing field', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        "variable shadowing field",
+        `
             class Foo {
                 int x;
 
@@ -102,51 +84,45 @@ describe('variables', () => {
                     int x = 10;
                 }
             }
-        `;
-
-        verify(input, t);
-    });
-
-    test('for loop variable', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        "for loop variable",
+        `
             void foo() {
                 for (int i = 0; i < 10; i++) {}
             }
-        `;
-
-        verify(input, t);
-    });
-
-    test('enhanced for variable', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        "enhanced for variable",
+        `
             void foo() {
                 for (String name : names) {}
             }
-        `;
-
-        verify(input, t);
-    });
-
-    test('catch variable', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        "catch variable",
+        `
             void foo() {
                 try {
                 } catch (Exception e) {
                 }
             }
-        `;
-
-        verify(input, t);
-    });
-
-    test('try with resources variable', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        "try with resources variable",
+        `
             void foo() {
                 try (InputStream in = open()) {
                 }
             }
-        `;
+        `,
+    ],
+];
 
-        verify(input, t);
-    });
-});
+for (const [name, input] of cases) {
+    verify(name, input);
+}

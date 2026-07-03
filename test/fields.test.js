@@ -1,107 +1,91 @@
-import { describe, test } from 'node:test';
-import { verify } from './test.js';
+import { verify } from '../src/test.js';
 
-describe('fields', () => {
-    test('simple field', (t) => {
-        const input = `
+const cases = [
+    [
+        'simple field',
+        `
             class Foo {
                 int x;
             }
-        `;
-
-        verify(input, t);
-    });
-
-    test('multiple fields', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'multiple fields',
+        `
             class Foo {
                 int x;
                 String name;
                 boolean active;
             }
-        `;
-
-        verify(input, t);
-    });
-
-    test('field with initializer', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'field with initializer',
+        `
             class Foo {
                 int x = 42;
             }
-        `;
-
-        verify(input, t);
-    });
-
-    test('multiple declarations', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'multiple declarations',
+        `
             class Foo {
                 int x, y, z;
             }
-        `;
-
-        verify(input, t);
-    });
-
-    test('generic field', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'generic field',
+        `
             class Foo {
                 List<String> names;
             }
-        `;
-
-        verify(input, t);
-    });
-
-    test('array field', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'array field',
+        `
             class Foo {
                 int[] numbers;
             }
-        `;
-
-        verify(input, t);
-    });
-
-    test('static final field', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'static final field',
+        `
             class Foo {
                 static final int MAX = 100;
             }
-        `;
-
-        verify(input, t);
-    });
-
-    test('annotated field', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'annotated field',
+        `
             class Foo {
                 @Inject
                 Service service;
             }
-        `;
-
-        verify(input, t);
-    });
-
-    test('field with constructor call', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'field with constructor call',
+        `
             class Foo {
                 List<String> list = new ArrayList<>();
             }
-        `;
-
-        verify(input, t);
-    });
-
-    test('field with method call', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'field with method call',
+        `
             class Foo {
                 String name = System.getProperty("user.name");
             }
-        `;
+        `,
+    ],
+];
 
-        verify(input, t);
-    });
-});
+for (const [name, input] of cases) {
+    verify(name, input);
+}

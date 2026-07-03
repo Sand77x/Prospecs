@@ -28,8 +28,9 @@ export const Context = Object.freeze({
 
 export const Expect = Object.freeze({
     NONE: 'none',
-    DECLARATION_NAME: 'declarationName',
+    TYPE_DECLARATION: 'typeDeclaration',
     PARAMETER_NAME: 'parameterName',
+    METHOD_REFERENCE: 'methodRef'
 });
 
 export const RESERVED = new Set([
@@ -81,6 +82,13 @@ export const RESERVED = new Set([
     'return',
 ]);
 
+export const TYPE_DECLARATION_KEYWORDS = new Set([
+    'class',
+    'interface',
+    'record',
+    'enum',
+]);
+
 export const PRIMITIVES = new Set([
     'int',
     'double',
@@ -116,5 +124,68 @@ export class Token {
 
         this.semantic = null;
         this.method = null;
+    }
+
+    isNull() {
+        return this.type === null;
+    }
+
+    // means not useless
+    // TODO: update name
+    isMeaningful() {
+        return (
+            !this.isNull() &&
+            this.type !== TokenType.WHITESPACE &&
+            this.type !== TokenType.COMMENT
+        );
+    }
+
+    isSymbol() {
+        return (
+            this.type === TokenType.SYMBOL || this.type === TokenType.SEMICOLON
+        );
+    }
+
+    isIdentifier() {
+        return this.type === TokenType.IDENTIFIER;
+    }
+
+    isWord() {
+        return !this.isNull() && this.isMeaningful() && !this.isSymbol();
+    }
+
+    isCapitalized() {
+        return /^[A-Z]/.test(this.text);
+    }
+
+    isAllCaps() {
+        return /^[A-Z0-9_]{2,}$/.test(this.text);
+    }
+
+    isDot() {
+        return this.text === '.';
+    }
+
+    isOpenParen() {
+        return this.text === '(';
+    }
+
+    isCloseParen() {
+        return this.text === ')';
+    }
+
+    isType() {
+        return (
+            this.type === TokenType.PRIMITIVE ||
+            (this.type === TokenType.IDENTIFIER && this.isCapitalized())
+        );
+    }
+
+    isLiteral() {
+        return (
+            this.type === TokenType.NUMBER ||
+            this.type === TokenType.STRING ||
+            this.type === TokenType.LITERAL
+        );
     }
 }

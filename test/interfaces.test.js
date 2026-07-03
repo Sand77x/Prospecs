@@ -1,113 +1,93 @@
-import { describe, test } from 'node:test';
-import { verify } from './test.js';
+import { verify } from '../src/test.js';
 
-describe('interfaces', () => {
-    test('empty interface', (t) => {
-        const input = `
+const cases = [
+    [
+        'empty interface',
+        `
             interface Foo {}
-        `;
-
-        verify(input, t);
-    });
-
-    test('interface with method', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'interface with method',
+        `
             interface Foo {
                 void bar();
             }
-        `;
-
-        verify(input, t);
-    });
-
-    test('interface with default method', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'interface with default method',
+        `
             interface Foo {
                 default void bar() {}
             }
-        `;
-
-        verify(input, t);
-    });
-
-    test('interface with static method', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'interface with static method',
+        `
             interface Foo {
                 static void bar() {}
             }
-        `;
-
-        verify(input, t);
-    });
-
-    test('interface constant', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'interface constant',
+        `
             interface Foo {
                 int VALUE = 42;
             }
-        `;
-
-        verify(input, t);
-    });
-
-    test('generic interface', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'generic interface',
+        `
             interface Box<T> {}
-        `;
-
-        verify(input, t);
-    });
-
-    test('interface extends interface', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'interface extends interface',
+        `
             interface Foo extends Bar {}
-        `;
-
-        verify(input, t);
-    });
-
-    test('interface extends multiple interfaces', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'interface extends multiple interfaces',
+        `
             interface Foo extends Bar, Baz {}
-        `;
-
-        verify(input, t);
-    });
-
-    test('class implements interface', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'class implements interface',
+        `
             class Foo implements Bar {}
-        `;
-
-        verify(input, t);
-    });
-
-    test('class implements multiple interfaces', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'class implements multiple interfaces',
+        `
             class Foo implements Bar, Baz {}
-        `;
-
-        verify(input, t);
-    });
-
-    test('annotated interface', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'annotated interface',
+        `
             @FunctionalInterface
             interface Foo {
                 void run();
             }
-        `;
-
-        verify(input, t);
-    });
-
-    test('nested interface', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'nested interface',
+        `
             class Outer {
                 interface Inner {}
             }
-        `;
+        `,
+    ],
+];
 
-        verify(input, t);
-    });
-});
+for (const [name, input] of cases) {
+    verify(name, input);
+}

@@ -1,96 +1,80 @@
-import { describe, test } from 'node:test';
-import { verify } from './test.js';
+import { verify } from '../src/test.js';
 
-describe('packages and imports', () => {
-    test('package declaration', (t) => {
-        const input = `
+const cases = [
+    [
+        'package declaration',
+        `
             package com.example.app;
-        `;
-
-        verify(input, t);
-    });
-
-    test('nested package', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'nested package',
+        `
             package com.example.project.parser;
-        `;
-
-        verify(input, t);
-    });
-
-    test('single import', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'single import',
+        `
             import java.util.List;
-        `;
-
-        verify(input, t);
-    });
-
-    test('multiple imports', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'multiple imports',
+        `
             import java.util.List;
             import java.util.Map;
-        `;
-
-        verify(input, t);
-    });
-
-    test('wildcard import', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'wildcard import',
+        `
             import java.util.*;
-        `;
-
-        verify(input, t);
-    });
-
-    test('static import', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'static import',
+        `
             import static java.lang.Math.max;
-        `;
-
-        verify(input, t);
-    });
-
-    test('static wildcard import', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'static wildcard import',
+        `
             import static java.lang.Math.*;
-        `;
-
-        verify(input, t);
-    });
-
-    test('package and imports', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'package and imports',
+        `
             package com.example;
 
             import java.util.List;
             import java.util.Map;
 
             class Test {}
-        `;
-
-        verify(input, t);
-    });
-
-    test('generic import usage', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'generic import usage',
+        `
             import java.util.List;
 
             class Test {
                 List<String> names;
             }
-        `;
-
-        verify(input, t);
-    });
-
-    test('fully qualified type', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'fully qualified type',
+        `
             class Test {
                 java.util.List<String> names;
             }
-        `;
+        `,
+    ],
+];
 
-        verify(input, t);
-    });
-});
+for (const [name, input] of cases) {
+    verify(name, input);
+}

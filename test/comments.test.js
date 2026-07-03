@@ -1,94 +1,80 @@
-import { describe, test } from 'node:test';
-import { verify } from './test.js';
+import { verify } from '../src/test.js';
 
-describe('comments', () => {
-    test('single line comment', (t) => {
-        const input = `
+const cases = [
+    [
+        'single line comment',
+        `
             // this is a comment
             int x = 0;
-        `;
-
-        verify(input, t);
-    });
-
-    test('end of line comment', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'end of line comment',
+        `
             int x = 0; // inline comment
-        `;
-
-        verify(input, t);
-    });
-
-    test('block comment', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'block comment',
+        `
             /*
                 multi-line comment
             */
             int x = 0;
-        `;
-
-        verify(input, t);
-    });
-
-    test('javadoc comment', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'javadoc comment',
+        `
             /**
              * This is documentation
              */
             void foo() {}
-        `;
-
-        verify(input, t);
-    });
-
-    test('comment inside class', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'comment inside class',
+        `
             class Foo {
                 // field comment
                 int x;
             }
-        `;
-
-        verify(input, t);
-    });
-
-    test('comment inside method', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'comment inside method',
+        `
             void foo() {
                 // logic here
                 int x = 1;
             }
-        `;
-
-        verify(input, t);
-    });
-
-    test('block comment inline', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'block comment inline',
+        `
             int x = /* inline block */ 5;
-        `;
-
-        verify(input, t);
-    });
-
-    test('comment-only file', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'comment-only file',
+        `
             // only comments
             /* nothing else */
-        `;
-
-        verify(input, t);
-    });
-
-    test('nested comment-like content', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'nested comment-like content',
+        `
             /*
                 // not a real comment start
                 /* nested-looking text */
             */
             int x = 0;
-        `;
+        `,
+    ],
+];
 
-        verify(input, t);
-    });
-});
+for (const [name, input] of cases) {
+    verify(name, input);
+}

@@ -1,87 +1,92 @@
-import { describe, test } from 'node:test';
-import { verify } from './test.js';
+import { verify } from '../src/test.js';
 
-describe('annotations', () => {
-    test('marker annotation', (t) => {
-        const input = `
+const cases = [
+    [
+        'marker annotation',
+        `
             @Override
             public String toString() {
                 return "";
             }
-        `;
-
-        verify(input, t);
-    });
-
-    test('annotation with single value', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'annotation with single value',
+        `
             @SuppressWarnings("unchecked")
             void foo() {}
-        `;
-
-        verify(input, t);
-    });
-
-    test('annotation with named arguments', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'annotation with named arguments',
+        `
             @RequestMapping(path = "/users", method = GET)
             void foo() {}
-        `;
-
-        verify(input, t);
-    });
-
-    test('multiple annotations', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'multiple annotations diff line',
+        `
             @A
             @B
             class Test {}
-        `;
-
-        verify(input, t);
-    });
-
-    test('multiple annotations same line', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'multiple annotations same line',
+        `
             @A @B
             class Test {}
-        `;
-
-        verify(input, t);
-    });
-
-    test('annotation on parameter', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'annotation on parameter',
+        `
             void foo(@Nullable String name) {}
-        `;
-
-        verify(input, t);
-    });
-
-    test('annotation on field', (t) => {
-        const input = `
-            @Inject
-            private Service service;
-        `;
-
-        verify(input, t);
-    });
-
-    test('annotation with array argument', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'annotation with array argument',
+        `
             @SuppressWarnings({"unchecked", "rawtypes"})
             void foo() {}
-        `;
-
-        verify(input, t);
-    });
-
-    test('nested annotation', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'qualified annotation',
+        `
+            @com.example.MyAnnotation
+            void foo() {}
+        `,
+    ],
+    [
+        'multiple qualified annotation',
+        `
+            @com.example.MyAnnotation @org.junit.jupiter.api.Test
+            void foo() {}
+        `,
+    ],
+    [
+        'qualified annotation inline',
+        `
+            @com.example.MyAnnotation void foo() {}
+        `,
+    ],
+    [
+        'qualified annotation with arg inline',
+        `
+            @com.example.MyAnnotation(msg = "hello") void foo() {}
+        `,
+    ],
+    [
+        'nested annotation',
+        `
             @Outer(@Inner("value"))
             class Test {}
-        `;
+        `,
+    ],
+];
 
-        verify(input, t);
-    });
-});
+for (const [name, input] of cases) {
+    verify(name, input);
+}

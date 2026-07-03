@@ -1,91 +1,77 @@
-import { describe, test } from 'node:test';
-import { verify } from './test.js';
+import { verify } from '../src/test.js';
 
-describe('classes', () => {
-    test('empty class', (t) => {
-        const input = `
+const cases = [
+    [
+        'empty class',
+        `
             class Foo {}
-        `;
-
-        verify(input, t);
-    });
-
-    test('class with fields', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'class with fields',
+        `
             class Foo {
                 int x;
                 String name;
             }
-        `;
-
-        verify(input, t);
-    });
-
-    test('class with methods', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'class with methods',
+        `
             class Foo {
                 void bar() {}
             }
-        `;
-
-        verify(input, t);
-    });
-
-    test('class extends another class', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'class extends another class',
+        `
             class Foo extends Bar {}
-        `;
-
-        verify(input, t);
-    });
-
-    test('class implements interfaces', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'class implements interfaces',
+        `
             class Foo implements A, B {}
-        `;
-
-        verify(input, t);
-    });
-
-    test('abstract class', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'abstract class',
+        `
             abstract class Foo {}
-        `;
-
-        verify(input, t);
-    });
-
-    test('final class', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'final class',
+        `
             final class Foo {}
-        `;
-
-        verify(input, t);
-    });
-
-    test('nested class', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'nested class',
+        `
             class Outer {
                 class Inner {}
             }
-        `;
+        `,
+    ],
 
-        verify(input, t);
-    });
-
-    test('generic class', (t) => {
-        const input = `
+    [
+        'generic class',
+        `
             class Box<T> {}
-        `;
+        `,
+    ],
 
-        verify(input, t);
-    });
-
-    test('generic class with inheritance', (t) => {
-        const input = `
+    [
+        'generic class with inheritance',
+        `
             class Box<T> extends Container<T> {}
-        `;
+        `,
+    ],
+];
 
-        verify(input, t);
-    });
-});
+for (const [name, input] of cases) {
+    verify(name, input);
+}

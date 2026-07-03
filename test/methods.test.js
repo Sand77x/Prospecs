@@ -1,86 +1,70 @@
-import { describe, test } from 'node:test';
-import { verify } from './test.js';
+import { verify } from '../src/test.js';
 
-describe('methods', () => {
-    test('simple method', (t) => {
-        const input = `
+const cases = [
+    [
+        'simple method',
+        `
             void foo() {}
-        `;
-
-        verify(input, t);
-    });
-
-    test('method with parameters', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'method with parameters',
+        `
             void foo(int a, String b) {}
-        `;
-
-        verify(input, t);
-    });
-
-    test('method call', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'method call',
+        `
             foo();
-        `;
-
-        verify(input, t);
-    });
-
-    test('method with return value', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'method with return value',
+        `
             int sum(int a, int b) {
                 return a + b;
             }
-        `;
-
-        verify(input, t);
-    });
-
-    test('method chain', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'method chain',
+        `
             object.foo().bar().baz();
-        `;
-
-        verify(input, t);
-    });
-
-    test('static method', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'static method',
+        `
             Math.max(a, b);
-        `;
-
-        verify(input, t);
-    });
-
-    test('generic method call', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'generic method call',
+        `
             Collections.<String>emptyList();
-        `;
-
-        verify(input, t);
-    });
-
-    test('varargs method', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'varargs method',
+        `
             void foo(String... args) {}
-        `;
-
-        verify(input, t);
-    });
-
-    test('throws clause', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'throws clause',
+        `
             void foo() throws IOException {}
-        `;
-
-        verify(input, t);
-    });
-
-    test('method reference', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'method reference',
+        `
             list.forEach(System.out::println);
-        `;
+        `,
+    ],
+];
 
-        verify(input, t);
-    });
-});
+for (const [name, input] of cases) {
+    verify(name, input);
+}

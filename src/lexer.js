@@ -1,4 +1,4 @@
-import { RESERVED, PRIMITIVES, LITERALS, Token, TokenType } from './Types.js';
+import { RESERVED, PRIMITIVES, LITERALS, Token, TokenType } from './types.js';
 
 export class Lexer {
     constructor(source) {

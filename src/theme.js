@@ -1,4 +1,4 @@
-import { SemanticType, TokenType, MethodType } from './Types.js';
+import { SemanticType, TokenType, MethodType } from './types.js';
 
 export const SemanticColors = new Map([
     [SemanticType.CLASS, { color: '#33cccc', bold: false, italic: false }],
@@ -10,10 +10,10 @@ export const SemanticColors = new Map([
     [SemanticType.METHOD, { color: '#ffffff', bold: false, italic: false }],
     [SemanticType.FIELD, { color: '#f59762', bold: false, italic: true }],
     [SemanticType.VARIABLE, { color: '#f59762', bold: false, italic: false }],
-    [SemanticType.PARAMETER, { color: '#f59762', bold: false, italic: false }],
+    [SemanticType.PARAMETER, { color: '#a9b7c6', bold: false, italic: false }],
     [SemanticType.PACKAGE, { color: '#a9b7c6', bold: false, italic: false }],
     [SemanticType.IMPORT, { color: '#a9b7c6', bold: false, italic: false }],
-    [SemanticType.CONSTANT, { color: '#f59762', bold: false, italic: false }],
+    [SemanticType.CONSTANT, { color: '#B1B1BA', bold: false, italic: true }],
     [SemanticType.ANNOTATION, { color: '#b5bd68', bold: false, italic: false }],
 ]);
 

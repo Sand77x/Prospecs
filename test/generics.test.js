@@ -1,120 +1,96 @@
-import test, { describe } from 'node:test';
-import { verify } from './test.js';
+import { verify } from '../src/test.js';
 
-describe('generics', () => {
-    test('simple generic', (t) => {
-        const input = `
+const cases = [
+    [
+        'simple generic',
+        `
             List<String> list;
-        `;
-
-        verify(input, t);
-    });
-
-    test('nested generics', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'nested generics',
+        `
             Map<String, List<Integer>> map;
-        `;
-
-        verify(input, t);
-    });
-
-    test('deeply nested generics', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'deeply nested generics',
+        `
             Optional<List<Map<String, Integer>>> optional;
-        `;
-
-        verify(input, t);
-    });
-
-    test('generic method parameter', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'generic method parameter',
+        `
             void foo(List<Collection<String>> param) {}
-        `;
-
-        verify(input, t);
-    });
-
-    test('generic return type', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'generic return type',
+        `
             Collection<String> foo() {
                 return null;
             }
-        `;
-
-        verify(input, t);
-    });
-
-    test('multiple generic parameters', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'multiple generic parameters',
+        `
             Map<String, Integer> map;
-        `;
-
-        verify(input, t);
-    });
-
-    test('wildcard', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'wildcard',
+        `
             List<?> list;
-        `;
-
-        verify(input, t);
-    });
-
-    test('extends wildcard', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'extends wildcard',
+        `
             List<? extends Number> numbers;
-        `;
-
-        verify(input, t);
-    });
-
-    test('super wildcard', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'super wildcard',
+        `
             List<? super Integer> numbers;
-        `;
-
-        verify(input, t);
-    });
-
-    test('generic class declaration', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'generic class declaration',
+        `
             class Box<T> {}
-        `;
-
-        verify(input, t);
-    });
-
-    test('multiple type parameters', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'multiple type parameters',
+        `
             class Pair<K, V> {}
-        `;
-
-        verify(input, t);
-    });
-
-    test('generic method', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'generic method',
+        `
             <T> T identity(T value) {
                 return value;
             }
-        `;
-
-        verify(input, t);
-    });
-
-    test('bounded type parameter', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'bounded type parameter',
+        `
             class Box<T extends Number> {}
-        `;
-
-        verify(input, t);
-    });
-
-    test('multiple bounds', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'multiple bounds',
+        `
             class Box<T extends Number & Comparable<T>> {}
-        `;
+        `,
+    ],
+];
 
-        verify(input, t);
-    });
-});
+for (const [name, input] of cases) {
+    verify(name, input);
+}

@@ -1,19 +1,17 @@
-import { describe, test } from 'node:test';
-import { verify } from './test.js';
+import { verify } from '../src/test.js';
 
-describe('control flow', () => {
-    test('if statement', (t) => {
-        const input = `
+const cases = [
+    [
+        'if statement',
+        `
             void foo() {
                 if (x > 0) {}
             }
-        `;
-
-        verify(input, t);
-    });
-
-    test('if else', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'if else',
+        `
             void foo() {
                 if (x > 0) {
                     positive();
@@ -21,13 +19,11 @@ describe('control flow', () => {
                     negative();
                 }
             }
-        `;
-
-        verify(input, t);
-    });
-
-    test('nested if', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'nested if',
+        `
             void foo() {
                 if (a) {
                     if (b) {
@@ -35,55 +31,45 @@ describe('control flow', () => {
                     }
                 }
             }
-        `;
-
-        verify(input, t);
-    });
-
-    test('while loop', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'while loop',
+        `
             void foo() {
                 while (running) {}
             }
-        `;
-
-        verify(input, t);
-    });
-
-    test('do while loop', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'do while loop',
+        `
             void foo() {
                 do {
                     work();
                 } while (running);
             }
-        `;
-
-        verify(input, t);
-    });
-
-    test('for loop', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'for loop',
+        `
             void foo() {
                 for (int i = 0; i < 10; i++) {}
             }
-        `;
-
-        verify(input, t);
-    });
-
-    test('enhanced for loop', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'enhanced for loop',
+        `
             void foo() {
                 for (String s : list) {}
             }
-        `;
-
-        verify(input, t);
-    });
-
-    test('switch statement', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'switch statement',
+        `
             void foo(int x) {
                 switch (x) {
                     case 1:
@@ -92,26 +78,22 @@ describe('control flow', () => {
                         break;
                 }
             }
-        `;
-
-        verify(input, t);
-    });
-
-    test('switch expression', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'switch expression',
+        `
             int foo(int x) {
                 return switch (x) {
                     case 1 -> 10;
                     default -> 0;
                 };
             }
-        `;
-
-        verify(input, t);
-    });
-
-    test('try catch', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'try catch',
+        `
             void foo() {
                 try {
                     work();
@@ -119,13 +101,11 @@ describe('control flow', () => {
                     handle(e);
                 }
             }
-        `;
-
-        verify(input, t);
-    });
-
-    test('try catch finally', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'try catch finally',
+        `
             void foo() {
                 try {
                     work();
@@ -135,53 +115,47 @@ describe('control flow', () => {
                     cleanup();
                 }
             }
-        `;
-
-        verify(input, t);
-    });
-
-    test('try with resources', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'try with resources',
+        `
             void foo() {
                 try (InputStream in = open()) {
                     read(in);
                 }
             }
-        `;
-
-        verify(input, t);
-    });
-
-    test('throw statement', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'throw statement',
+        `
             void foo() {
                 throw new RuntimeException();
             }
-        `;
-
-        verify(input, t);
-    });
-
-    test('break and continue', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'break and continue',
+        `
             void foo() {
                 while (true) {
                     if (done) break;
                     continue;
                 }
             }
-        `;
-
-        verify(input, t);
-    });
-
-    test('return statement', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'return statement',
+        `
             int foo() {
                 return 42;
             }
-        `;
+        `,
+    ],
+];
 
-        verify(input, t);
-    });
-});
+for (const [name, input] of cases) {
+    verify(name, input);
+}

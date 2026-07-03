@@ -1,49 +1,41 @@
-import { describe, test } from 'node:test';
-import { verify } from './test.js';
+import { verify } from '../src/test.js';
 
-describe('enums', () => {
-    test('empty enum', (t) => {
-        const input = `
+const cases = [
+    [
+        'empty enum',
+        `
             enum Color {}
-        `;
-
-        verify(input, t);
-    });
-
-    test('simple enum', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'simple enum',
+        `
             enum Color {
                 RED, GREEN, BLUE
             }
-        `;
-
-        verify(input, t);
-    });
-
-    test('enum with semicolon', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'enum with semicolon',
+        `
             enum Color {
                 RED, GREEN, BLUE;
             }
-        `;
-
-        verify(input, t);
-    });
-
-    test('enum with field', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'enum with field',
+        `
             enum Color {
                 RED;
 
                 private int value;
             }
-        `;
-
-        verify(input, t);
-    });
-
-    test('enum with constructor', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'enum with constructor',
+        `
             enum Color {
                 RED(1);
 
@@ -53,13 +45,11 @@ describe('enums', () => {
                     this.value = value;
                 }
             }
-        `;
-
-        verify(input, t);
-    });
-
-    test('enum with method', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'enum with method',
+        `
             enum Color {
                 RED;
 
@@ -67,53 +57,47 @@ describe('enums', () => {
                     return 1;
                 }
             }
-        `;
-
-        verify(input, t);
-    });
-
-    test('enum implements interface', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'enum implements interface',
+        `
             enum Color implements Serializable {
                 RED;
             }
-        `;
-
-        verify(input, t);
-    });
-
-    test('generic field in enum', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'generic field in enum',
+        `
             enum Test {
                 A;
 
                 List<String> values;
             }
-        `;
-
-        verify(input, t);
-    });
-
-    test('annotated enum', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'annotated enum',
+        `
             @Deprecated
             enum Color {
                 RED
             }
-        `;
-
-        verify(input, t);
-    });
-
-    test('enum constant with class body', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'enum constant with class body',
+        `
             enum Operation {
                 ADD {
                     void apply() {}
                 };
             }
-        `;
+        `,
+    ],
+];
 
-        verify(input, t);
-    });
-});
+for (const [name, input] of cases) {
+    verify(name, input);
+}

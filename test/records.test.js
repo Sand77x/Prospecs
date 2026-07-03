@@ -1,100 +1,84 @@
-import { describe, test } from 'node:test';
-import { verify } from './test.js';
+import { verify } from '../src/test.js';
 
-describe('records', () => {
-    test('empty record', (t) => {
-        const input = `
+const cases = [
+    [
+        'empty record',
+        `
             record Point() {}
-        `;
-
-        verify(input, t);
-    });
-
-    test('record with components', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'record with components',
+        `
             record Point(int x, int y) {}
-        `;
-
-        verify(input, t);
-    });
-
-    test('generic record', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'generic record',
+        `
             record Box<T>(T value) {}
-        `;
-
-        verify(input, t);
-    });
-
-    test('record implements interface', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'record implements interface',
+        `
             record Point(int x, int y) implements Serializable {}
-        `;
-
-        verify(input, t);
-    });
-
-    test('record with compact constructor', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'record with compact constructor',
+        `
             record Point(int x, int y) {
                 Point {
                     if (x < 0) throw new IllegalArgumentException();
                 }
             }
-        `;
-
-        verify(input, t);
-    });
-
-    test('record with canonical constructor', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'record with canonical constructor',
+        `
             record Point(int x, int y) {
                 Point(int x, int y) {
                     this.x = x;
                     this.y = y;
                 }
             }
-        `;
-
-        verify(input, t);
-    });
-
-    test('record with method', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'record with method',
+        `
             record Point(int x, int y) {
                 int sum() {
                     return x + y;
                 }
             }
-        `;
-
-        verify(input, t);
-    });
-
-    test('record with static field', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'record with static field',
+        `
             record Point(int x, int y) {
                 static final int ORIGIN = 0;
             }
-        `;
-
-        verify(input, t);
-    });
-
-    test('annotated record', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'annotated record',
+        `
             @Deprecated
             record Point(int x, int y) {}
-        `;
-
-        verify(input, t);
-    });
-
-    test('annotated record component', (t) => {
-        const input = `
+        `,
+    ],
+    [
+        'annotated record component',
+        `
             record User(@Nullable String name, int age) {}
-        `;
+        `,
+    ],
+];
 
-        verify(input, t);
-    });
-});
+for (const [name, input] of cases) {
+    verify(name, input);
+}

@@ -6,7 +6,12 @@
     "test": "test"
   },
   "scripts": {
-    "test": "node --test"
+    "clean": "rm -rf dist",
+    "build": "node esbuild.js",
+    "test": "node test/index.js",
+    "reg": "node test/regression.test.js",
+    "push": "npm run build && clasp push",
+    "gas": "clasp run test"
   },
   "keywords": [],
   "author": "",
@@ -14,6 +19,6 @@
   "description": "",
   "type": "module",
   "devDependencies": {
-    "esbuild": "^0.28.1"
+    "esbuild": "0.28.1"
   }
 }

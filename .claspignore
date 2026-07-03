@@ -1,3 +1,5 @@
+esbuild.js
 client_secret.json
 test/**
 node_modules/**
+src/**

@@ -1,5 +1,5 @@
-import { TokenType, SemanticType, MethodType, Token } from './Types.js';
-import { SemanticColors, MethodColors, TokenColors } from './Theme.js';
+import { TokenType, SemanticType, MethodType, Token } from './types.js';
+import { SemanticColors, MethodColors, TokenColors } from './theme.js';
 
 export class Colorizer {
     constructor(textRange, tokens) {
@@ -32,7 +32,7 @@ export class Colorizer {
         }
     }
 
-    colorizeAnsi() {
+    colorizeAnsi(debug = false) {
         const RESET = '\x1b[0m';
         for (const token of this.tokens) {
             if (token.text.length > 0) {
@@ -43,6 +43,14 @@ export class Colorizer {
                     style.bold,
                 );
                 token.text = code + token.text + RESET;
+
+                if (debug) {
+                    if (token.isIdentifier())
+                        token.text +=
+                            `[${token.semantic}` +
+                            (token.method ? '-' + token.method : '') +
+                            ']';
+                }
             }
         }
     }
